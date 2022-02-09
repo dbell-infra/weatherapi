@@ -1,7 +1,7 @@
 import requests
 import os
 
-api_key = os.getenv('WEATHER_API_KEY')
+
 
 
 def get_weather(api_key: str, city: str="portland") -> dict:

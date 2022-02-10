@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  weather_db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: weatherapi
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    ports:
+      - "5432:5432"
+  db_admin:
+    image: adminer
+    restart: always
+    ports:
+      - 9090:8080

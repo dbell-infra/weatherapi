@@ -24,7 +24,7 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD}}
+          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -45,8 +45,8 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       env:
-        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD}}
-        WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY}}
+        POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+        WEATHER_API_KEY: ${{secrets.WEATHER_API_KEY}}
         POSTGRES_HOST: postgres
 
       run: |

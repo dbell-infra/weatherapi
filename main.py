@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from routes import router
-from database import setup_db
+from .routes import router
+from .database import setup_db
 
 app = FastAPI()
 setup_db()

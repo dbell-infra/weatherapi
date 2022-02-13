@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 import os
-from openweather import get_weather
-from schema import TemperatureResponse
-from crud import create_temperature_query, get_temperature_query
-from database import get_db
-from helpers import compare_timestamps
+from .openweather import get_weather
+from .schema import TemperatureResponse, MessageResponse
+from .crud import create_temperature_query, get_temperature_query
+from .database import get_db
+from .helpers import compare_timestamps
 from datetime import datetime, timezone
 
 router = APIRouter()
@@ -13,7 +14,7 @@ router = APIRouter()
 API_KEY = os.getenv('WEATHER_API_KEY')
 
 
-@router.get("/temperature", response_model=TemperatureResponse)
+@router.get("/temperature", response_model=TemperatureResponse, responses={404: {"model": MessageResponse}})
 def get_current_temperature(city: str = "portland", db: Session = Depends(get_db)):
     """
     Gets temperature data based on location as provided by query string and returns JSON
@@ -49,9 +50,9 @@ def get_current_temperature(city: str = "portland", db: Session = Depends(get_db
 
     # If city name is invalid, return message to the client
     if not weather_data['validity']:
-        return {
+        return JSONResponse(status_code=404, content={
             "msg": f"could not locate city {city}"
-        }
+        })
 
     # Send response to the user and cache query in DB
     response = TemperatureResponse(query_time=str(query_time),

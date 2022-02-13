@@ -22,7 +22,7 @@ class TemperatureQuery(Base):
 # Prep the Postgres Environment and SQLAlchemy config
 POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 POSTGRES_HOST = os.getenv('POSTGRES_HOST')
-SQLALCHEMY_URL = f"postgresql://weatherapi:{POSTGRES_PASSWORD}@localhost/weatherapi"
+SQLALCHEMY_URL = f"postgresql://weatherapi:{POSTGRES_PASSWORD}@l{POSTGRES_HOST}/weatherapi"
 engine = create_engine(SQLALCHEMY_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 metadata = MetaData()

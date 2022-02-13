@@ -1,0 +1,27 @@
+services:
+  weather_db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: weatherapi
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  weather_api:
+    image: weather_api
+    environment:
+      POSTGRES_USER: weatherapi
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_HOST: "weatherapi-weather_db-1"
+      WEATHER_API_KEY: "${WEATHER_API_KEY}"
+    ports:
+      - 1010:80
+    depends_on:
+      weather_db:
+        condition: service_healthy

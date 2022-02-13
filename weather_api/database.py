@@ -2,6 +2,7 @@ from sqlalchemy import create_engine, MetaData, Column, Integer, String, DateTim
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declarative_base
+import time
 
 import os
 
@@ -32,6 +33,7 @@ query_table = TemperatureQuery.__table__
 
 def setup_db():
     Base.metadata.create_all(engine)
+
 
 
 def get_db():

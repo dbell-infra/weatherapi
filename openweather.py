@@ -1,7 +1,4 @@
 import requests
-import os
-
-
 
 
 def get_weather(api_key: str, city: str="portland") -> dict:
@@ -18,7 +15,14 @@ def get_weather(api_key: str, city: str="portland") -> dict:
         return {
             "status": response.status_code
         }
+    # set bool to propagate city validity to downstream code
+    validity = True
+    if response.json()['count'] == 0:
+        validity = False
+
     return {
         "status": response.status_code,
+        "validity": validity,
         "data":  response.json()
     }
+

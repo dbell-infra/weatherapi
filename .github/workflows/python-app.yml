@@ -4,7 +4,7 @@
 name: Python application
 
 env:
-  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  POSTGRES_PASSWORD: postgres
 
 on:
   push:
@@ -48,8 +48,8 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       env:
-        POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
-        WEATHER_API_KEY: ${{secrets.WEATHER_API_KEY}}
+        POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+        WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         POSTGRES_HOST: postgres
 
       run: |

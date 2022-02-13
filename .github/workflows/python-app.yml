@@ -27,7 +27,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Bring up test DB
       run: |
-        docker-compose -f docker-compose-dev.yml -d
+        docker-compose up -f docker-compose-dev.yml -d
     - name: Test with pytest
       run: |
         pytest

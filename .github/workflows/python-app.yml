@@ -25,15 +25,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Bring up test DB
-      env:
-        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD}}
-      run: |
-        docker-compose -f docker-compose-dev.yml up -d
     - name: Test with pytest
       env:
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD}}
         WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY}}
 
       run: |
+        docker-compose -f docker-compose-dev.yml up -d
         pytest

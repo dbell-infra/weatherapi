@@ -1,4 +1,4 @@
-from .openweather import get_weather
+from weather_api.openweather import get_weather
 import os
 
 

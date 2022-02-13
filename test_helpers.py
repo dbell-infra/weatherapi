@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from .helpers import compare_timestamps
+from weather_api.helpers import compare_timestamps
 
 
 def test_compare_timestamps_valid():

@@ -1,5 +1,6 @@
 services:
   weather_db:
+    hostname: postgres
     image: postgres
     restart: always
     environment:
@@ -8,20 +9,20 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: ["CMD-SHELL", "pg_isready --username=weatherapi"]
       interval: 10s
       timeout: 5s
       retries: 5
 
   weather_api:
-    image: weather_api
+    image: dmbellnetworking/weatherapi:v0.1
     environment:
       POSTGRES_USER: weatherapi
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      POSTGRES_HOST: "weatherapi-weather_db-1"
+      POSTGRES_HOST: "postgres"
       WEATHER_API_KEY: "${WEATHER_API_KEY}"
     ports:
-      - 1010:80
+      - 80:80
     depends_on:
       weather_db:
         condition: service_healthy

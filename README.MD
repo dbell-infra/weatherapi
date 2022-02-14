@@ -1,5 +1,5 @@
 # WeatherAPI
-
+![CI](https://github.com/dm-bell-networking/weatherapi/actions/workflows/python-app.yml/badge.svg)
 WeatherAPI is a RESTful API that returns weather data
 
 Weather API uses FastAPI as the API framework and Postgres as the DB for caching weather queries
